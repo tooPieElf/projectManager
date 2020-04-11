@@ -27,10 +27,10 @@ public class ProjectController<result> {
 
   @Autowired
   private ProjectService projectService;
-
-
   @Autowired
   private MapValidationErrorService mapValidationErrorService;
+
+
   @PostMapping("")
   public ResponseEntity<?> createNewProject (@Valid @RequestBody Project project, BindingResult result){
     ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);

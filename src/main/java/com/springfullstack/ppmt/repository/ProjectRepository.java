@@ -13,7 +13,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
 
   Project findByProjectIdentifier(String projectId);
-
+// the custom methods MUST have a "find" before it.
   @Override
   List<Project> findAll();
 }
