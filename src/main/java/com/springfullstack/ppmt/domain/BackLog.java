@@ -1,9 +1,14 @@
 package com.springfullstack.ppmt.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
 @Entity
 public class BackLog {
 
@@ -12,6 +17,10 @@ public class BackLog {
   private Long id;
   private Integer PTSequence = 0;
   private String projectIdentifier;
+
+  @OneToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "project_id", nullable = false)
+  private Project project;
 
 
   public BackLog() {
@@ -39,5 +48,14 @@ public class BackLog {
 
   public void setProjectIdentifier(String projectIdentifier) {
     this.projectIdentifier = projectIdentifier;
+
+  }
+
+  public Project getProject() {
+    return project;
+  }
+
+  public void setProject(Project project) {
+    this.project = project;
   }
 }
