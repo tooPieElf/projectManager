@@ -1,5 +1,6 @@
 package com.springfullstack.ppmt.service;
 
+import com.springfullstack.ppmt.domain.BackLog;
 import com.springfullstack.ppmt.domain.Project;
 import com.springfullstack.ppmt.exceptions.ProjectIdExceptions;
 import com.springfullstack.ppmt.repository.ProjectRepository;
@@ -15,6 +16,12 @@ public class ProjectService {
 
   try {
     project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase() );
+      if(project.getId()==null){
+        BackLog backLog = new BackLog();
+        project.setBackLog(backLog);
+        backLog.setProject(project);
+        backLog.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
+      }
     return projectRepository.save(project);
   } catch (Exception e){
     throw new ProjectIdExceptions("project ID " + project.getProjectIdentifier().toUpperCase()+" already exists" );
