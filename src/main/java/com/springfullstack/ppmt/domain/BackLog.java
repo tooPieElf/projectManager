@@ -1,5 +1,6 @@
 package com.springfullstack.ppmt.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,6 +21,7 @@ public class BackLog {
 
   @OneToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "project_id", nullable = false)
+  @JsonIgnore
   private Project project;
 
 

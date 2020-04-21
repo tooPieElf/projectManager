@@ -3,6 +3,7 @@ package com.springfullstack.ppmt.service;
 import com.springfullstack.ppmt.domain.BackLog;
 import com.springfullstack.ppmt.domain.Project;
 import com.springfullstack.ppmt.exceptions.ProjectIdExceptions;
+import com.springfullstack.ppmt.repository.BacklogRepository;
 import com.springfullstack.ppmt.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 public class ProjectService {
   @Autowired
   private ProjectRepository projectRepository;
+  @Autowired
+  private BacklogRepository backlogRepository;
 
   public Project saveOrUpdateProject(Project project){
 
@@ -21,6 +24,9 @@ public class ProjectService {
         project.setBackLog(backLog);
         backLog.setProject(project);
         backLog.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
+      }
+      if(project.getId()!=null){
+        project.setBackLog(backlogRepository.findByProjectIdentifier(project.getProjectIdentifier().toUpperCase()));
       }
     return projectRepository.save(project);
   } catch (Exception e){
