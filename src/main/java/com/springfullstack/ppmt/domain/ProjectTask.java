@@ -1,11 +1,16 @@
 package com.springfullstack.ppmt.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
@@ -21,6 +26,12 @@ public class ProjectTask {
   private String status;
   private Integer priority;
   private Date dueDate;
+
+  @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+  @JoinColumn(name = "backlog_id", updatable = false, nullable = false)
+  @JsonIgnore
+  private BackLog backLog;
+
   @Column(updatable = false)
   private String projectIdentifier;
   private Date create_At;
@@ -117,6 +128,14 @@ public class ProjectTask {
 
   public void setUpdate_At(Date update_At) {
     this.update_At = update_At;
+  }
+
+  public BackLog getBackLog() {
+    return backLog;
+  }
+
+  public void setBackLog(BackLog backLog) {
+    this.backLog = backLog;
   }
 
   @Override
