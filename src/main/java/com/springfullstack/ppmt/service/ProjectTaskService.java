@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 public class ProjectTaskService {
   @Autowired
   private BacklogRepository backlogRepository;
+  @Autowired
   private ProjectTaskRepository projectTaskRepository;
 
   public ProjectTask addProjectTask(String projectIdentifier, ProjectTask projectTask){
@@ -21,14 +22,16 @@ public class ProjectTaskService {
     Integer BacklogSequence = backLog.getPTSequence();
     BacklogSequence++;
 
+    backLog.setPTSequence(BacklogSequence);
 
-    projectTask.setProjectSequence(projectIdentifier+"-"+BacklogSequence);
+
+    projectTask.setProjectSequence(backLog.getProjectIdentifier()+"-"+BacklogSequence);
     projectTask.setProjectIdentifier(projectIdentifier);
 
-//    if(projectTask.getPriority()==0|| projectTask.getPriority()==null){
-//      projectTask.setPriority(3);
-//    }
-    if(projectTask.getStatus()==""|| projectTask.getStatus()==null){
+    if(projectTask.getPriority()==null){
+      projectTask.setPriority(3);
+    }
+    if(projectTask.getStatus()=="" || projectTask.getStatus()==null){
        projectTask.setStatus("TO_DO");
     }
     return projectTaskRepository.save(projectTask);
