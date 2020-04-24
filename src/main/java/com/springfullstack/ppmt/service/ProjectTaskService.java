@@ -4,6 +4,7 @@ import com.springfullstack.ppmt.domain.BackLog;
 import com.springfullstack.ppmt.domain.ProjectTask;
 import com.springfullstack.ppmt.repository.BacklogRepository;
 import com.springfullstack.ppmt.repository.ProjectTaskRepository;
+import java.util.List;
 import org.hibernate.criterion.ProjectionList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,8 @@ public class ProjectTaskService {
     }
     return projectTaskRepository.save(projectTask);
   }
+ public Iterable<ProjectTask>findBackLogById(String id){
+    return projectTaskRepository.findByProjectIdentifierOrderByPriority(id);
+}
 
 }
