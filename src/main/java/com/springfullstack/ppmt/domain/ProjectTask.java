@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class ProjectTask {
@@ -21,6 +22,7 @@ public class ProjectTask {
   private Long id;
   @Column(updatable = false)
   private String projectSequence;
+  @NotBlank(message = "please include a project summary")
   private String summary;
   private String acceptanceCriteria;
   private String status;
