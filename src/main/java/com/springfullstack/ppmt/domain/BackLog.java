@@ -26,7 +26,7 @@ public class BackLog {
   @JoinColumn(name = "project_id", nullable = false)
   @JsonIgnore
   private Project project;
-  @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "backLog")
+  @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "backLog", orphanRemoval = true)
   private List<ProjectTask> projectTasks = new ArrayList<>();
 
   public BackLog() {
